@@ -4,6 +4,7 @@
 // Project name: hui
 
 #include "../ui.h"
+#include "../../room_scheduler.h"
 
 lv_obj_t * uic_Image1;
 lv_obj_t * ui_TEMP = NULL;
@@ -38,6 +39,7 @@ void ui_event_Panel19(lv_event_t * e)
     lv_event_code_t event_code = lv_event_get_code(e);
 
     if(event_code == LV_EVENT_CLICKED) {
+        room_scheduler_stop();
         _ui_screen_change(&ui_Room_1, LV_SCR_LOAD_ANIM_FADE_ON, 500, 0, &ui_Room_1_screen_init);
     }
 }
@@ -48,6 +50,33 @@ void ui_event_Panel3(lv_event_t * e)
 
     if(event_code == LV_EVENT_CLICKED) {
         _ui_label_set_property(ui_Label25, _UI_LABEL_PROPERTY_TEXT, "Close Blinds");
+    }
+}
+
+void ui_event_Image1(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+
+    if(event_code == LV_EVENT_CLICKED) {
+        room_scheduler_increase_temperature();
+    }
+}
+
+void ui_event_Image2(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+
+    if(event_code == LV_EVENT_CLICKED) {
+        room_scheduler_decrease_temperature();
+    }
+}
+
+void ui_event_Panel4(lv_event_t * e)
+{
+    lv_event_code_t event_code = lv_event_get_code(e);
+
+    if(event_code == LV_EVENT_CLICKED) {
+        room_scheduler_extend();
     }
 }
 
@@ -345,7 +374,24 @@ void ui_TEMP_screen_init(void)
 
     lv_obj_add_event_cb(ui_Panel19, ui_event_Panel19, LV_EVENT_ALL, NULL);
     lv_obj_add_event_cb(ui_Panel3, ui_event_Panel3, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(ui_Image1, ui_event_Image1, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(ui_Image2, ui_event_Image2, LV_EVENT_ALL, NULL);
+    lv_obj_add_event_cb(ui_Panel4, ui_event_Panel4, LV_EVENT_ALL, NULL);
     uic_Image1 = ui_Image1;
+    
+    /* Initialize room scheduler (safe to call multiple times)
+     * This ensures timer is created even if screen is destroyed/recreated
+     */
+    room_scheduler_init();
+    
+    /* Start timer only if this is a new meeting (flag set from room selection) */
+    if (new_meeting_flag) {
+        new_meeting_flag = false;
+        room_scheduler_start();
+    } else {
+        /* Just update the display with current values when returning to screen */
+        room_scheduler_update_display();
+    }
 
 }
 
