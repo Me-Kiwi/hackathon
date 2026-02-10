@@ -1,0 +1,15 @@
+Switch Red
+Switch Blue
+Switch Green
+Switch to Red
+Switch to Blue
+Switch to Green
+Change Red
+Change Blue
+Change Green
+Change to Red
+Change to Blue
+Change to Green
+Set Slider ZERO
+Set Slider MIN
+Set Slider MAX
