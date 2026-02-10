@@ -1,0 +1,18 @@
+SET(SOURCES components/ui_comp_backbutton.c
+    components/ui_comp.c
+    screens/ui_FloorScreen.c
+    screens/ui_Lockscreen.c
+    screens/ui_Room_1.c
+    screens/ui_TEMP.c
+    ui.c
+    components/ui_comp_hook.c
+    ui_helpers.c
+    images/ui_img_icn_back_png.c
+    images/ui_img_add_24dp_e3e3e3_fill0_wght400_grad0_opsz24_png.c
+    images/ui_img_remove_24dp_e3e3e3_fill0_wght400_grad0_opsz24_png.c
+    fonts/ui_font_Font1.c
+    fonts/ui_font_SS3.c
+    fonts/ui_font_SS48.c
+    fonts/ui_font_SS52.c)
+
+add_library(ui ${SOURCES})

@@ -1,0 +1,187 @@
+{
+    "projectName": "hackathon_voice",
+    "settings": {
+        "dict": "English-US",
+        "op_cond_db": 10,
+        "arm_core_id": "U55",
+        "nlu_timeout_ms": 0,
+        "nlu_sensitivity": 0,
+        "wwd_sensitivity": 0,
+        "nlu_pos_silence_ms": 300,
+        "nlu_pre_silence_ms": 0,
+        "wwd_pos_silence_ms": 0,
+        "wwd_pre_silence_ms": 200
+    },
+    "wakewords": [
+        {
+            "interjections": [
+                "Hey"
+            ],
+            "word": "Infineon",
+            "phoneme": []
+        }
+    ],
+    "intents": [
+        {
+            "name": "Change_Colour",
+            "nodes": [
+                {
+                    "required": true,
+                    "value": {
+                        "type": "text",
+                        "phrases": [
+                            "Switch",
+                            "Change"
+                        ]
+                    }
+                },
+                {
+                    "required": false,
+                    "value": {
+                        "type": "text",
+                        "phrases": [
+                            "to"
+                        ]
+                    }
+                },
+                {
+                    "required": true,
+                    "value": {
+                        "type": "variable",
+                        "name": "Colour"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "SetZero",
+            "nodes": [
+                {
+                    "required": true,
+                    "value": {
+                        "type": "text",
+                        "phrases": [
+                            "Set"
+                        ]
+                    }
+                },
+                {
+                    "required": true,
+                    "value": {
+                        "type": "text",
+                        "phrases": [
+                            "Slider"
+                        ]
+                    }
+                },
+                {
+                    "required": true,
+                    "value": {
+                        "type": "variable",
+                        "name": "ZERO"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "SetMin",
+            "nodes": [
+                {
+                    "required": true,
+                    "value": {
+                        "type": "text",
+                        "phrases": [
+                            "Set"
+                        ]
+                    }
+                },
+                {
+                    "required": true,
+                    "value": {
+                        "type": "text",
+                        "phrases": [
+                            "Slider"
+                        ]
+                    }
+                },
+                {
+                    "required": true,
+                    "value": {
+                        "type": "variable",
+                        "name": "MIN"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "SetMax",
+            "nodes": [
+                {
+                    "required": true,
+                    "value": {
+                        "type": "text",
+                        "phrases": [
+                            "Set"
+                        ]
+                    }
+                },
+                {
+                    "required": true,
+                    "value": {
+                        "type": "text",
+                        "phrases": [
+                            "Slider"
+                        ]
+                    }
+                },
+                {
+                    "required": true,
+                    "value": {
+                        "type": "variable",
+                        "name": "MAX"
+                    }
+                }
+            ]
+        }
+    ],
+    "variables": [
+        {
+            "name": "Colour",
+            "type": "text",
+            "phrases": [
+                "Red",
+                "Blue",
+                "Green"
+            ],
+            "ranges": null,
+            "units": null
+        },
+        {
+            "name": "ZERO",
+            "type": "text",
+            "phrases": [
+                "ZERO"
+            ],
+            "ranges": null,
+            "units": null
+        },
+        {
+            "name": "MIN",
+            "type": "text",
+            "phrases": [
+                "MIN"
+            ],
+            "ranges": null,
+            "units": null
+        },
+        {
+            "name": "MAX",
+            "type": "text",
+            "phrases": [
+                "MAX"
+            ],
+            "ranges": null,
+            "units": null
+        }
+    ]
+}
