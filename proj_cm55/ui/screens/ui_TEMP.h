@@ -39,8 +39,11 @@ extern lv_obj_t * ui_Label24;
 extern void ui_event_Panel3(lv_event_t * e);
 extern lv_obj_t * ui_Panel3;
 extern lv_obj_t * ui_Label25;
+extern void ui_event_Panel4(lv_event_t * e);
 extern lv_obj_t * ui_Panel4;
 extern lv_obj_t * ui_Label26;
+extern void ui_event_Image1(lv_event_t * e);
+extern void ui_event_Image2(lv_event_t * e);
 // CUSTOM VARIABLES
 extern lv_obj_t * uic_Image1;
 
