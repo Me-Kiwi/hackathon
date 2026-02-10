@@ -379,9 +379,21 @@ void ui_TEMP_screen_init(void)
     lv_obj_add_event_cb(ui_Panel4, ui_event_Panel4, LV_EVENT_ALL, NULL);
     uic_Image1 = ui_Image1;
     
-    /* Initialize room scheduler and start timer when screen loads */
-    room_scheduler_init();
-    room_scheduler_start();
+    /* Initialize room scheduler on first load */
+    static bool scheduler_initialized = false;
+    if (!scheduler_initialized) {
+        room_scheduler_init();
+        scheduler_initialized = true;
+    }
+    
+    /* Start timer only if this is a new meeting (flag set from room selection) */
+    if (new_meeting_flag) {
+        new_meeting_flag = false;
+        room_scheduler_start();
+    } else {
+        /* Just update the display with current values when returning to screen */
+        room_scheduler_update_display();
+    }
 
 }
 

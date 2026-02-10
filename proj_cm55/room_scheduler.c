@@ -16,6 +16,7 @@
 int32_t room_timer_seconds = INITIAL_TIMER_SECONDS;
 int32_t room_temperature = INITIAL_TEMPERATURE;
 bool timer_active = false;
+bool new_meeting_flag = false;
 static lv_timer_t * scheduler_timer = NULL;
 
 /*******************************************************************************
@@ -23,6 +24,7 @@ static lv_timer_t * scheduler_timer = NULL;
 ********************************************************************************
 * Summary:
 *  Initialize the room scheduler system. Creates LVGL timer for countdown.
+*  Should be called once at application startup.
 *
 * Parameters:
 *  void
@@ -42,6 +44,28 @@ void room_scheduler_init(void)
         scheduler_timer = lv_timer_create(room_scheduler_update_timer, 1000, NULL);
         lv_timer_pause(scheduler_timer);
     }
+}
+
+/*******************************************************************************
+* Function Name: room_scheduler_deinit
+********************************************************************************
+* Summary:
+*  Cleanup the room scheduler system and delete the timer.
+*
+* Parameters:
+*  void
+*
+* Return:
+*  void
+*
+*******************************************************************************/
+void room_scheduler_deinit(void)
+{
+    if (scheduler_timer != NULL) {
+        lv_timer_delete(scheduler_timer);
+        scheduler_timer = NULL;
+    }
+    timer_active = false;
 }
 
 /*******************************************************************************
@@ -200,8 +224,8 @@ void room_scheduler_decrease_temperature(void)
 *******************************************************************************/
 void room_scheduler_update_display(void)
 {
-    static char temp_str[16];
-    static char timer_str[32];
+    char temp_str[16];
+    char timer_str[32];
     
     /* Update temperature display */
     if (ui_Label10 != NULL) {

@@ -22,6 +22,9 @@ void ui_event_Panel6(lv_event_t * e)
     lv_event_code_t event_code = lv_event_get_code(e);
 
     if(event_code == LV_EVENT_CLICKED) {
+        /* Set flag to indicate a new meeting is starting */
+        extern bool new_meeting_flag;
+        new_meeting_flag = true;
         _ui_screen_change(&ui_TEMP, LV_SCR_LOAD_ANIM_FADE_ON, 200, 0, &ui_TEMP_screen_init);
     }
 }

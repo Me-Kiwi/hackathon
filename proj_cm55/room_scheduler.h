@@ -31,11 +31,13 @@ extern "C" {
 extern int32_t room_timer_seconds;
 extern int32_t room_temperature;
 extern bool timer_active;
+extern bool new_meeting_flag;
 
 /*******************************************************************************
 * Function Prototypes
 *******************************************************************************/
 void room_scheduler_init(void);
+void room_scheduler_deinit(void);
 void room_scheduler_start(void);
 void room_scheduler_stop(void);
 void room_scheduler_extend(void);
