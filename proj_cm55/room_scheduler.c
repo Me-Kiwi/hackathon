@@ -24,7 +24,7 @@ static lv_timer_t * scheduler_timer = NULL;
 ********************************************************************************
 * Summary:
 *  Initialize the room scheduler system. Creates LVGL timer for countdown.
-*  Should be called once at application startup.
+*  Safe to call multiple times - checks if already initialized.
 *
 * Parameters:
 *  void
@@ -39,7 +39,9 @@ void room_scheduler_init(void)
     room_temperature = INITIAL_TEMPERATURE;
     timer_active = false;
     
-    /* Create a timer that fires every second (1000ms) */
+    /* Create a timer that fires every second (1000ms) 
+     * Safe to call multiple times - only creates if not already created
+     */
     if (scheduler_timer == NULL) {
         scheduler_timer = lv_timer_create(room_scheduler_update_timer, 1000, NULL);
         lv_timer_pause(scheduler_timer);
@@ -159,10 +161,13 @@ void room_scheduler_update_timer(lv_timer_t * timer)
         room_timer_seconds--;
         room_scheduler_update_display();
         
-        /* If timer reaches zero, meeting ends automatically */
+        /* If timer reaches zero, stop the timer
+         * Note: User must manually end meeting to navigate back.
+         * Auto-navigation could be added by including UI headers
+         * and calling screen change function here.
+         */
         if (room_timer_seconds <= 0) {
             timer_active = false;
-            /* Could navigate back to room selection here if desired */
         }
     }
 }
@@ -229,7 +234,7 @@ void room_scheduler_update_display(void)
     
     /* Update temperature display */
     if (ui_Label10 != NULL) {
-        snprintf(temp_str, sizeof(temp_str), "%d°C", (int)room_temperature);
+        snprintf(temp_str, sizeof(temp_str), "%d°C", room_temperature);
         lv_label_set_text(ui_Label10, temp_str);
     }
     
@@ -237,7 +242,7 @@ void room_scheduler_update_display(void)
     if (ui_Label24 != NULL) {
         int32_t minutes = room_timer_seconds / 60;
         int32_t seconds = room_timer_seconds % 60;
-        snprintf(timer_str, sizeof(timer_str), "%d min %d sec", (int)minutes, (int)seconds);
+        snprintf(timer_str, sizeof(timer_str), "%d min %d sec", minutes, seconds);
         lv_label_set_text(ui_Label24, timer_str);
     }
 }

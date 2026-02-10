@@ -379,15 +379,10 @@ void ui_TEMP_screen_init(void)
     lv_obj_add_event_cb(ui_Panel4, ui_event_Panel4, LV_EVENT_ALL, NULL);
     uic_Image1 = ui_Image1;
     
-    /* Initialize room scheduler on first load
-     * NOTE: This function is called from LVGL task context only, so static
-     * flag is safe. LVGL guarantees single-threaded access to UI functions.
+    /* Initialize room scheduler (safe to call multiple times)
+     * This ensures timer is created even if screen is destroyed/recreated
      */
-    static bool scheduler_initialized = false;
-    if (!scheduler_initialized) {
-        room_scheduler_init();
-        scheduler_initialized = true;
-    }
+    room_scheduler_init();
     
     /* Start timer only if this is a new meeting (flag set from room selection) */
     if (new_meeting_flag) {

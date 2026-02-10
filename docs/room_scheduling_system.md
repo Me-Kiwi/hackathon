@@ -30,7 +30,7 @@ When a room is selected, the following features are available:
 - **Initial Timer**: 30 seconds countdown when room is first selected
 - **Timer Display**: Shows remaining time in "X min Y sec" format
 - **Extend Button**: Adds 30 seconds to the current timer
-- **Auto-End**: Meeting ends automatically when timer reaches zero
+- **Timer Expiration**: Timer stops at zero (user must click End Meeting to navigate back)
 - **End Meeting Button**: Manually end the meeting and return to room selection
 
 #### Temperature Control
@@ -95,9 +95,9 @@ The room scheduler maintains the following state:
    - Toggle blinds as needed
 
 3. **Ending a Meeting**:
-   - Click "END MEETING" button to manually end
-   - Or wait for timer to reach zero for automatic end
-   - System returns to room selection screen
+   - Click "END MEETING" button to manually end and return to room selection
+   - When timer reaches zero, timer stops but user must click END MEETING to exit
+   - System returns to room selection screen after clicking END MEETING
 
 ## Configuration
 
