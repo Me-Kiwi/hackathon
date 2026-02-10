@@ -4,6 +4,7 @@
 // Project name: hui
 
 #include "../ui.h"
+#include "../../room_scheduler.h"
 
 lv_obj_t * ui_Room_1 = NULL;
 lv_obj_t * ui_Panel6 = NULL;
@@ -23,7 +24,6 @@ void ui_event_Panel6(lv_event_t * e)
 
     if(event_code == LV_EVENT_CLICKED) {
         /* Set flag to indicate a new meeting is starting */
-        extern bool new_meeting_flag;
         new_meeting_flag = true;
         _ui_screen_change(&ui_TEMP, LV_SCR_LOAD_ANIM_FADE_ON, 200, 0, &ui_TEMP_screen_init);
     }
